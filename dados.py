@@ -85,8 +85,10 @@ grupos = [
 
 grupo = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L')
 
-partidas = ((0,1),(2,3),(3,1),(0,2),(1,2),(3,0))
+primeira_rodada = ((0,1),(2,3))
 
+segunda_rodada = ((3,1),(0,2))
 
+terceira_rodada = ((1,2),(3,0))
 
 partidas_anteriores = []

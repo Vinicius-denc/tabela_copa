@@ -35,7 +35,7 @@ from classificacao import exibe_classificacao
 from partida import partida, resultados
 
 
-
+numero_de_partidas = 0
 indice_partidas = 0
 indice_grupo = 0
 encerra_programa = False
@@ -53,7 +53,7 @@ while not encerra_programa:
     if navegacao_menu == 'p':
         
         limpar_tela()
-        indice_grupo, indice_partidas = partida(dados.grupos, dados.grupo, dados.partidas, indice_grupo, indice_partidas)
+        indice_grupo, indice_partidas = partida(numero_de_partidas, dados.grupos, dados.grupo, dados.primeira_rodada, dados.segunda_rodada, dados.terceira_rodada, indice_grupo, indice_partidas)
         pausar()
         limpar_tela()
         

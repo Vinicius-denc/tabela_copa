@@ -3,11 +3,20 @@ import dados
 
 
 
-def partida(grupos, grupo, partidas, indice_grupo, indice_partidas):
+def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, terceira_rodada, indice_grupo, indice_partidas):
 
+    if numero_de_partidas > 24:
+        rodada_atual == segunda_rodada
+        indice_grupo == 0
+    elif numero_de_partidas > 48:
+        rodada_atual == terceira_rodada
+        indice_grupo == 0
+    else:
+        print('acabaou as rodadas, desenvolver chaveamento')    
 
+    rodada_atual = primeira_rodada
     grupo_atual = grupos[indice_grupo]
-    indice_time1, indice_time2 = partidas[indice_partidas]
+    indice_time1, indice_time2 = rodada_atual[indice_partidas]
 
     
     time1 = grupo_atual[indice_time1]
@@ -48,12 +57,14 @@ def partida(grupos, grupo, partidas, indice_grupo, indice_partidas):
         time2['gols'] += resultado2
         time2['empates'] += 1
         
-
+    numero_de_partidas +1
     indice_partidas +=1
 
-    if indice_partidas >= len(partidas):
+    if indice_partidas >= len(rodada_atual):
         indice_partidas = 0
         indice_grupo += 1
+
+    
     
     return indice_grupo, indice_partidas
 

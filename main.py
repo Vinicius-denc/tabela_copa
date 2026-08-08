@@ -10,8 +10,9 @@
 
 
 #PROXIMO PASSO FASE DE GRUPOS.
-#Melhorar a sequencia de partidas intercalando grupos
+#limpar a tela do menu quando digitar caracteres aleatorios
 
+#Melhorar a sequencia de partidas intercalando grupos
 #Exibir a partida anterior OK
 #Separar os arquivos OK
 #Limpar a tela OK
@@ -35,10 +36,11 @@ from classificacao import exibe_classificacao
 from partida import partida, resultados
 
 
-numero_de_partidas = 0
+
 indice_partidas = 0
 indice_grupo = 0
 encerra_programa = False
+numero_de_partidas = 0
 
 
 while not encerra_programa:
@@ -53,7 +55,17 @@ while not encerra_programa:
     if navegacao_menu == 'p':
         
         limpar_tela()
-        indice_grupo, indice_partidas = partida(numero_de_partidas, dados.grupos, dados.grupo, dados.primeira_rodada, dados.segunda_rodada, dados.terceira_rodada, indice_grupo, indice_partidas)
+        indice_grupo, indice_partidas, numero_de_partidas = partida(
+            numero_de_partidas, 
+            dados.grupos, 
+            dados.grupo, 
+            dados.primeira_rodada, 
+            dados.segunda_rodada, 
+            dados.terceira_rodada, 
+            indice_grupo, 
+            indice_partidas
+            )
+        
         pausar()
         limpar_tela()
         
@@ -78,6 +90,9 @@ while not encerra_programa:
         limpar_tela()
         #print('Opção inválida!')
         #pausar()
+        limpar_tela()
+
+    elif len(navegacao_menu) > 1:
         limpar_tela()
 
     else:

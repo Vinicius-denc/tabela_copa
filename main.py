@@ -1,8 +1,6 @@
 #MELHORIAS
-
 #mensagem de VAI COMEÇAR O JOGO!!!!
 #classificação ordenada;
-#impedir partidas após o fim da fase de grupos;
 #melhorar a impressão da tabela;
 #corrigir detalhes visuais.
 
@@ -10,9 +8,11 @@
 
 
 #PROXIMO PASSO FASE DE GRUPOS.
-#limpar a tela do menu quando digitar caracteres aleatorios
+#Adicionar gols tomados no criterio de desempate
 
-#Melhorar a sequencia de partidas intercalando grupos
+#impedir partidas após o fim da fase de grupos OK
+#limpar a tela do menu quando digitar caracteres aleatorios OK
+#Melhorar a sequencia de partidas intercalando grupos OK
 #Exibir a partida anterior OK
 #Separar os arquivos OK
 #Limpar a tela OK

@@ -6,7 +6,8 @@ import dados
 def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, terceira_rodada, indice_grupo, indice_partidas):
 
     
-
+# Define qual rodada das partidas, a comparação de tamanho dos grupos com as rodadas somadas, foram feitas dessa forma para
+#caso fosse adicionado ou removido grupos, para ser algo dinâmico
     if numero_de_partidas < len(grupos) * len(primeira_rodada):
         rodada_atual = primeira_rodada
         
@@ -26,6 +27,7 @@ def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, 
     if indice_grupo >= len(grupos):
                 indice_grupo = 0  
 
+
     grupo_atual = grupos[indice_grupo]
     indice_time1, indice_time2 = rodada_atual[indice_partidas]
 
@@ -43,7 +45,7 @@ def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, 
     print('X')
     resultado2 = ler_placar(time2['nome'])
 
-    
+    # Lista vazia, vou acrescentando as partidas para serem consultadas pela função resultados
     dados.partidas_anteriores.append(f"{time1['nome']} {resultado1} X {resultado2} {time2['nome']}")
     
     if resultado1 > resultado2:
@@ -71,6 +73,7 @@ def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, 
     numero_de_partidas +=1
     indice_partidas +=1
 
+# Faz o controle das trocas dos grupos da rodada
     if indice_partidas >= len(rodada_atual):
         indice_partidas = 0
         indice_grupo += 1
@@ -93,8 +96,9 @@ def ler_placar(time):
             print(f'Digite o placar do {time}')
 
 def resultados(partidas_anteriores):
-    
+    #A variavel partida_anteriores vem da função partida
     if not partidas_anteriores:
         return 'Não há partidas para serem exibidas'
     else:
         return '\n'.join(partidas_anteriores)
+    # o join() pega os itens da lista, junta eles e adiciona um separador, no caso o \n

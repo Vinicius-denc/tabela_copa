@@ -2,41 +2,13 @@
 import dados
 
 
-
-def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, terceira_rodada, indice_grupo, indice_partidas):
-
-    
-# Define qual rodada das partidas, a comparação de tamanho dos grupos com as rodadas somadas, foram feitas dessa forma para
-#caso fosse adicionado ou removido grupos, para ser algo dinâmico
-    if numero_de_partidas < len(grupos) * len(primeira_rodada):
-        rodada_atual = primeira_rodada
-        
-
-    elif numero_de_partidas < len(grupos) * ( len(primeira_rodada) + len(segunda_rodada) ):
-        rodada_atual = segunda_rodada
-
-
-    elif numero_de_partidas < len(grupos) * ( len(primeira_rodada) + len(segunda_rodada) + len(terceira_rodada)):
-        rodada_atual = terceira_rodada
-        
-    else:
-        print('acabou as rodadas, desenvolver chaveamento')
-        return indice_grupo, indice_partidas, numero_de_partidas  
-
-
-    if indice_grupo >= len(grupos):
-                indice_grupo = 0  
-
-
-    grupo_atual = grupos[indice_grupo]
-    indice_time1, indice_time2 = rodada_atual[indice_partidas]
+def partida(time1, time2):
+   
+    # if indice_grupo >= len(grupos):
+    #             indice_grupo = 0  
 
     
-    time1 = grupo_atual[indice_time1]
-    time2 = grupo_atual[indice_time2]
-    
-    
-    print(f'GRUPO {grupo[indice_grupo]}')
+    #print(f'GRUPO {grupo[indice_grupo]}')
     print(f'{time1["nome"]} X {time2["nome"]}')
     print('Resultado:')
 
@@ -45,41 +17,12 @@ def partida(numero_de_partidas, grupos, grupo, primeira_rodada, segunda_rodada, 
     print('X')
     resultado2 = ler_placar(time2['nome'])
 
+    return resultado1, resultado2
+
     # Lista vazia, vou acrescentando as partidas para serem consultadas pela função resultados
+def registrar_partida(time1, time2, resultado1, resultado2):
     dados.partidas_anteriores.append(f"{time1['nome']} {resultado1} X {resultado2} {time2['nome']}")
-    
-    if resultado1 > resultado2:
-        time1['pontos'] += 3
-        time1['vitorias'] += 1
-        time1['gols'] += resultado1
-        time2['derrotas'] += 1
-        time2['gols'] += resultado2
-        
-    elif resultado2 > resultado1:
-        time2['pontos'] += 3
-        time2['vitorias'] += 1
-        time2['gols'] += resultado2
-        time1['derrotas'] += 1
-        time1['gols'] += resultado1
 
-    else:
-        time1['pontos'] += 1
-        time1['gols'] += resultado1
-        time1['empates'] += 1
-        time2['pontos'] += 1 
-        time2['gols'] += resultado2
-        time2['empates'] += 1
-        
-    numero_de_partidas +=1
-    indice_partidas +=1
-
-# Faz o controle das trocas dos grupos da rodada
-    if indice_partidas >= len(rodada_atual):
-        indice_partidas = 0
-        indice_grupo += 1
-
-      
-    return indice_grupo, indice_partidas, numero_de_partidas
 
 def ler_placar(time):
     
@@ -96,6 +39,7 @@ def ler_placar(time):
             print(f'Digite o placar do {time}')
 
 def resultados(partidas_anteriores):
+
     #A variavel partida_anteriores vem da função partida
     if not partidas_anteriores:
         return 'Não há partidas para serem exibidas'

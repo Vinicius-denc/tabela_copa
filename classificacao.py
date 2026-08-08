@@ -18,3 +18,27 @@ def exibe_classificacao(grupos, grupo):
         for selecao in grupo_atual:
             print(f'|{selecao["nome"]:<15} | {selecao["pontos"]:^5} | {selecao["vitorias"]:^3} | {selecao["derrotas"]:^3} | {selecao["empates"]:^3} | {selecao["gols"]:^3} |')
         print()
+
+
+def atualizar_classificacao(time1, time2, resultado1, resultado2):
+    if resultado1 > resultado2:
+        time1['pontos'] += 3
+        time1['vitorias'] += 1
+        time1['gols'] += resultado1
+        time2['derrotas'] += 1
+        time2['gols'] += resultado2
+        
+    elif resultado2 > resultado1:
+        time2['pontos'] += 3
+        time2['vitorias'] += 1
+        time2['gols'] += resultado2
+        time1['derrotas'] += 1
+        time1['gols'] += resultado1
+
+    else:
+        time1['pontos'] += 1
+        time1['gols'] += resultado1
+        time1['empates'] += 1
+        time2['pontos'] += 1 
+        time2['gols'] += resultado2
+        time2['empates'] += 1

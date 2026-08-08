@@ -8,6 +8,7 @@
 
 
 #PROXIMO PASSO FASE DE GRUPOS.
+#Limpar o menu quando digita um numero
 #Adicionar gols tomados no criterio de desempate
 
 #impedir partidas após o fim da fase de grupos OK
@@ -32,8 +33,9 @@
 
 import dados
 from utils import pausar, limpar_tela
-from classificacao import exibe_classificacao
-from partida import partida, resultados
+from classificacao import exibe_classificacao, atualizar_classificacao
+from partida import partida, resultados, registrar_partida
+from dados import define_rodada
 
 
 
@@ -53,19 +55,47 @@ while not encerra_programa:
     navegacao_menu = input('Escolha uma das opções: ').strip().lower()
     
     if navegacao_menu == 'p':
-        
+
+        if navegacao_menu == 'p':
+
+            total_partidas_grupos = len(dados.grupos) * (
+            len(dados.primeira_rodada)
+            + len(dados.segunda_rodada)
+            + len(dados.terceira_rodada)
+        )
+
+        if numero_de_partidas >= total_partidas_grupos:
+            print('A fase de grupos terminou!')
+            pausar()
+            limpar_tela()
+            continue
+
+        rodada_atual = define_rodada(numero_de_partidas, dados.grupos, dados.primeira_rodada, dados.segunda_rodada, dados.terceira_rodada)
+
+        grupo_atual = dados.grupos[indice_grupo]
+        indice_time1, indice_time2 = rodada_atual[indice_partidas]
+
+        time1 = grupo_atual[indice_time1]
+        time2 = grupo_atual[indice_time2]
+
+
         limpar_tela()
-        indice_grupo, indice_partidas, numero_de_partidas = partida(
-            numero_de_partidas, 
-            dados.grupos, 
-            dados.grupo, 
-            dados.primeira_rodada, 
-            dados.segunda_rodada, 
-            dados.terceira_rodada, 
-            indice_grupo, 
-            indice_partidas
-            )
-        
+        resultado1, resultado2 = partida(time1, time2)
+        registrar_partida(time1, time2, resultado1,resultado2)
+        atualizar_classificacao(time1, time2, resultado1, resultado2)
+
+
+        numero_de_partidas +=1 
+        indice_partidas +=1
+
+        #  Faz o controle das trocas dos grupos da rodada
+        if indice_partidas >= len(rodada_atual):
+            indice_partidas = 0
+            indice_grupo += 1
+
+            if indice_grupo >=len(dados.grupos):
+                indice_grupo = 0
+
         pausar()
         limpar_tela()
         
@@ -94,6 +124,7 @@ while not encerra_programa:
 
     elif len(navegacao_menu) > 1:
         limpar_tela()
+
 
     else:
         continue

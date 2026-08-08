@@ -1,4 +1,7 @@
+
+
 def criar_selecao(nome):
+
     return {
         'nome': nome,
         'pontos': 0,
@@ -7,6 +10,18 @@ def criar_selecao(nome):
         'empates': 0,
         'gols': 0
     }
+
+def define_rodada(numero_de_partidas, grupos, primeira_rodada, segunda_rodada, terceira_rodada):
+    if numero_de_partidas < len(grupos) * len(primeira_rodada):
+        rodada_atual = primeira_rodada
+                           
+    elif numero_de_partidas < len(grupos) * ( len(primeira_rodada) + len(segunda_rodada) ):
+        rodada_atual = segunda_rodada
+            
+    elif numero_de_partidas < len(grupos) * ( len(primeira_rodada) + len(segunda_rodada) + len(terceira_rodada)):
+        rodada_atual = terceira_rodada
+
+    return rodada_atual
 
 grupos = [
     [
@@ -92,3 +107,4 @@ segunda_rodada = ((3,1),(0,2))
 terceira_rodada = ((1,2),(3,0))
 
 partidas_anteriores = []
+

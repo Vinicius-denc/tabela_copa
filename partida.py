@@ -3,12 +3,8 @@ import dados
 
 
 def partida(time1, time2):
-   
-    # if indice_grupo >= len(grupos):
-    #             indice_grupo = 0  
-
+        
     
-    #print(f'GRUPO {grupo[indice_grupo]}')
     print(f'{time1["nome"]} X {time2["nome"]}')
     print('Resultado:')
 
@@ -19,7 +15,6 @@ def partida(time1, time2):
 
     return resultado1, resultado2
 
-    # Lista vazia, vou acrescentando as partidas para serem consultadas pela função resultados
 def registrar_partida(time1, time2, resultado1, resultado2):
     dados.partidas_anteriores.append(f"{time1['nome']} {resultado1} X {resultado2} {time2['nome']}")
 

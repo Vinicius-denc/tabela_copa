@@ -7,16 +7,17 @@ def exibe_classificacao(grupos, grupo):
             key=lambda selecao: (
                 selecao['pontos'],
                 selecao['vitorias'],
-                selecao['gols']
+                selecao['gols'],
+                -selecao['gols_contra']
             ),
             reverse=True
         )
     
         print(f'(GRUPO {grupo[i]})')
-        print(f'|{"Seleção":<15} |{"Pts":^7}| {"V":^3} | {"D":^3} | {"E":^3} | {"G":^4}|')
-        print('-'*50)
+        print(f'|{"Seleção":<15} |{"Pts":^7}| {"V":^3} | {"D":^3} | {"E":^3} | {"G":^4}| {"Gc":^4}|')
+        print('-'*56)
         for selecao in grupo_atual:
-            print(f'|{selecao["nome"]:<15} | {selecao["pontos"]:^5} | {selecao["vitorias"]:^3} | {selecao["derrotas"]:^3} | {selecao["empates"]:^3} | {selecao["gols"]:^3} |')
+            print(f'|{selecao["nome"]:<15} | {selecao["pontos"]:^5} | {selecao["vitorias"]:^3} | {selecao["derrotas"]:^3} | {selecao["empates"]:^3} | {selecao["gols"]:^3} | {selecao["gols_contra"]:^3} |')
         print()
 
 
@@ -25,20 +26,26 @@ def atualizar_classificacao(time1, time2, resultado1, resultado2):
         time1['pontos'] += 3
         time1['vitorias'] += 1
         time1['gols'] += resultado1
+        time1['gols_contra'] += resultado2
         time2['derrotas'] += 1
         time2['gols'] += resultado2
+        time2['gols_contra'] += resultado1
         
     elif resultado2 > resultado1:
         time2['pontos'] += 3
         time2['vitorias'] += 1
         time2['gols'] += resultado2
+        time2['gols_contra'] += resultado1
         time1['derrotas'] += 1
         time1['gols'] += resultado1
+        time1['gols_contra'] += resultado2
 
     else:
         time1['pontos'] += 1
         time1['gols'] += resultado1
         time1['empates'] += 1
+        time1['gols_contra'] += resultado2
         time2['pontos'] += 1 
         time2['gols'] += resultado2
         time2['empates'] += 1
+        time2['gols_contra'] += resultado1

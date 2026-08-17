@@ -9,8 +9,8 @@
 
 #PROXIMO PASSO FASE DE GRUPOS.
 #Limpar o menu quando digita um numero
-#Adicionar gols tomados no criterio de desempate
 
+#Adicionar gols tomados no criterio de desempate OK
 #impedir partidas após o fim da fase de grupos OK
 #limpar a tela do menu quando digitar caracteres aleatorios OK
 #Melhorar a sequencia de partidas intercalando grupos OK
@@ -80,6 +80,7 @@ while not encerra_programa:
 
 
         limpar_tela()
+        print(f'GRUPO {dados.grupo[indice_grupo]}')
         resultado1, resultado2 = partida(time1, time2)
         registrar_partida(time1, time2, resultado1,resultado2)
         atualizar_classificacao(time1, time2, resultado1, resultado2)

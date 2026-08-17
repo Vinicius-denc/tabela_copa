@@ -8,7 +8,8 @@ def criar_selecao(nome):
         'vitorias': 0,
         'derrotas': 0,
         'empates': 0,
-        'gols': 0
+        'gols': 0,
+        'gols_contra' : 0
     }
 
 def define_rodada(numero_de_partidas, grupos, primeira_rodada, segunda_rodada, terceira_rodada):

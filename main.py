@@ -8,6 +8,8 @@
 
 
 #PROXIMO PASSO FASE DE GRUPOS.
+#Criar a fase de eliminatórias
+#utilizar a pasta packages
 #Limpar o menu quando digita um numero
 
 #Adicionar gols tomados no criterio de desempate OK
@@ -33,9 +35,9 @@
 
 import dados
 from utils import pausar, limpar_tela
-from classificacao import exibe_classificacao, atualizar_classificacao
+from classificacao import exibe_classificacao, atualizar_classificacao, obter_classificados
 from partida import partida, resultados, registrar_partida
-from dados import define_rodada
+from dados import define_rodada, criar_chaveamento
 
 
 
@@ -43,6 +45,14 @@ indice_partidas = 0
 indice_grupo = 0
 encerra_programa = False
 numero_de_partidas = 0
+fase_eliminatoria = False
+
+
+
+
+
+# for time1, time2 in chaveamento:
+#     print(f'{time1["nome"]} X {time2["nome"]}')
 
 
 while not encerra_programa:
@@ -55,57 +65,59 @@ while not encerra_programa:
     navegacao_menu = input('Escolha uma das opções: ').strip().lower()
     
     if navegacao_menu == 'p':
+        if fase_eliminatoria:
+            chaveamento = criar_chaveamento(classificados)
+        else:
+            total_partidas_grupos = len(dados.grupos) * (   #Variavel que define a quantidade de partidas
+                len(dados.primeira_rodada)
+                + len(dados.segunda_rodada)
+                + len(dados.terceira_rodada)
+            )
 
-        if navegacao_menu == 'p':
+            
 
-            total_partidas_grupos = len(dados.grupos) * (
-            len(dados.primeira_rodada)
-            + len(dados.segunda_rodada)
-            + len(dados.terceira_rodada)
-        )
+            rodada_atual = define_rodada(numero_de_partidas, dados.grupos, dados.primeira_rodada, dados.segunda_rodada, dados.terceira_rodada)
 
-        if numero_de_partidas >= total_partidas_grupos:
-            print('A fase de grupos terminou!')
+            grupo_atual = dados.grupos[indice_grupo]
+            indice_time1, indice_time2 = rodada_atual[indice_partidas]
+
+            time1 = grupo_atual[indice_time1]
+            time2 = grupo_atual[indice_time2]
+
+
+            limpar_tela()
+            print(f'GRUPO {dados.grupo[indice_grupo]}')
+            resultado1, resultado2 = partida(time1, time2, fase_eliminatoria)
+            registrar_partida(time1, time2, resultado1,resultado2)
+            atualizar_classificacao(time1, time2, resultado1, resultado2)
+
+
+            numero_de_partidas +=1 
+            indice_partidas +=1
+
+            if numero_de_partidas >= total_partidas_grupos:
+                fase_grupos = True
+                classificados = obter_classificados(dados.grupos)
+                continue
+
+            #  Faz o controle das trocas dos grupos da rodada
+            if indice_partidas >= len(rodada_atual):
+                indice_partidas = 0
+                indice_grupo += 1
+
+                if indice_grupo >=len(dados.grupos):
+                    indice_grupo = 0
+
             pausar()
             limpar_tela()
-            continue
-
-        rodada_atual = define_rodada(numero_de_partidas, dados.grupos, dados.primeira_rodada, dados.segunda_rodada, dados.terceira_rodada)
-
-        grupo_atual = dados.grupos[indice_grupo]
-        indice_time1, indice_time2 = rodada_atual[indice_partidas]
-
-        time1 = grupo_atual[indice_time1]
-        time2 = grupo_atual[indice_time2]
-
-
-        limpar_tela()
-        print(f'GRUPO {dados.grupo[indice_grupo]}')
-        resultado1, resultado2 = partida(time1, time2)
-        registrar_partida(time1, time2, resultado1,resultado2)
-        atualizar_classificacao(time1, time2, resultado1, resultado2)
-
-
-        numero_de_partidas +=1 
-        indice_partidas +=1
-
-        #  Faz o controle das trocas dos grupos da rodada
-        if indice_partidas >= len(rodada_atual):
-            indice_partidas = 0
-            indice_grupo += 1
-
-            if indice_grupo >=len(dados.grupos):
-                indice_grupo = 0
-
-        pausar()
-        limpar_tela()
         
     elif navegacao_menu == 'c':
 
         limpar_tela()
         exibe_classificacao(dados.grupos, dados.grupo)
         pausar()
-        limpar_tela()        
+        limpar_tela()
+              
 
     elif navegacao_menu == 'a':
         

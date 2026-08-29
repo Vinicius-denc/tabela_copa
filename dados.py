@@ -24,6 +24,20 @@ def define_rodada(numero_de_partidas, grupos, primeira_rodada, segunda_rodada, t
 
     return rodada_atual
 
+def criar_chaveamento(classificados):
+    chaveamento = []
+
+    for i in range(0, len(classificados), 4):
+        primeiro_grupo = classificados[i]
+        segundo_grupo = classificados[i+1]
+        terceiro_grupo = classificados[i+2]
+        quarto_grupo = classificados[i+3]
+
+        chaveamento.append((primeiro_grupo, quarto_grupo))
+        chaveamento.append((terceiro_grupo, segundo_grupo))
+
+    return chaveamento
+
 grupos = [
     [
         criar_selecao('Mexico'),
@@ -42,37 +56,37 @@ grupos = [
         criar_selecao('Marrocos'),
         criar_selecao('Escocia'),
         criar_selecao('Haiti')
+    ],
+    [
+        criar_selecao('Estados Unidos'),
+        criar_selecao('Australia'),
+        criar_selecao('Paraguai'),
+        criar_selecao('Turquia')
+    ], 
+    [
+        criar_selecao('Alemanha'),
+        criar_selecao('Costa do Marfim'),
+        criar_selecao('Equador'),
+        criar_selecao('Curaçao')
+    ],
+    [
+        criar_selecao('Paises Baixos'),
+        criar_selecao('Japao'),
+        criar_selecao('Suecia'),
+        criar_selecao('Tunisia')
+    ],
+    [
+        criar_selecao('Belgica'),
+        criar_selecao('Egito'),
+        criar_selecao('Ira'),
+        criar_selecao('Nova Zelandia')
+    ],
+    [
+        criar_selecao('Espanha'),
+        criar_selecao('Cabo Verde'),
+        criar_selecao('Uruguai'),
+        criar_selecao('Arabia Saudita')
     ]
-    # [
-    #     criar_selecao('Estados Unidos'),
-    #     criar_selecao('Australia'),
-    #     criar_selecao('Paraguai'),
-    #     criar_selecao('Turquia')
-    # ], 
-    # [
-    #     criar_selecao('Alemanha'),
-    #     criar_selecao('Costa do Marfim'),
-    #     criar_selecao('Equador'),
-    #     criar_selecao('Curaçao')
-    # ],
-    # [
-    #     criar_selecao('Paises Baixos'),
-    #     criar_selecao('Japao'),
-    #     criar_selecao('Suecia'),
-    #     criar_selecao('Tunisia')
-    # ],
-    # [
-    #     criar_selecao('Belgica'),
-    #     criar_selecao('Egito'),
-    #     criar_selecao('Ira'),
-    #     criar_selecao('Nova Zelandia')
-    # ],
-    # [
-    #     criar_selecao('Espanha'),
-    #     criar_selecao('Cabo Verde'),
-    #     criar_selecao('Uruguai'),
-    #     criar_selecao('Arabia Saudita')
-    # ],
     # [
     #     criar_selecao('França'),
     #     criar_selecao('Noruega'),
@@ -108,4 +122,6 @@ segunda_rodada = ((3,1),(0,2))
 terceira_rodada = ((1,2),(3,0))
 
 partidas_anteriores = []
+
+
 

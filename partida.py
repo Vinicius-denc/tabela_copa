@@ -2,22 +2,28 @@
 import dados
 
 
-def partida(time1, time2):
+def partida(time1, time2, fase_eliminatoria):
+
+    while True:    
+        print(f'{time1["nome"]} X {time2["nome"]}')
+        print('Resultado:')
+
         
-    
-    print(f'{time1["nome"]} X {time2["nome"]}')
-    print('Resultado:')
+        resultado1 = ler_placar(time1['nome'])    
+        print('X')
+        resultado2 = ler_placar(time2['nome'])
 
-    
-    resultado1 = ler_placar(time1['nome'])    
-    print('X')
-    resultado2 = ler_placar(time2['nome'])
+        if fase_eliminatoria and resultado1 == resultado2:
+            print('Empates não são permitidos, jogue novamente!')
+            continue
 
-    return resultado1, resultado2
+        return resultado1, resultado2
+
+#def partida_eliminatoria(time1, time2):
+
 
 def registrar_partida(time1, time2, resultado1, resultado2):
     dados.partidas_anteriores.append(f"{time1['nome']} {resultado1} X {resultado2} {time2['nome']}")
-
 
 def ler_placar(time):
     
